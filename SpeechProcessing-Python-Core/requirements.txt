@@ -1,0 +1,7 @@
+numpy
+whisper
+ChatTTS
+torch
+torchaudio
+librosa
+soundfile
