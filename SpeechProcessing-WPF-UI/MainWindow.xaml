@@ -1,0 +1,217 @@
+﻿<Window x:Class="SpeechProcessing.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:SpeechProcessing.Views"
+        xmlns:vm="clr-namespace:SpeechProcessing.ViewModels"
+        xmlns:local="clr-namespace:SpeechProcessing" 
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="1300"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Resources/icon.ico">
+
+
+    <Border CornerRadius="10" BorderThickness="1">
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#6D2FFF" Offset="0"/>
+                <GradientStop Color="#FB539B" Offset="0.5"/>
+                <GradientStop Color="#836EFB" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+
+        <Grid>
+            <Border x:Name="expiration" Visibility="Collapsed" CornerRadius="10">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0.5">
+                        <GradientStop Color="#d4d4f9" Offset="0"/>
+                        <GradientStop Color="#9292d6" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Margin="10,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <Button x:Name="btnClose0"
+                            Style="{StaticResource controlButton}"
+                            Tag="{StaticResource color4}"
+                            Click="btnClose_Click"
+                            Height="30">
+                            <fa:IconImage Icon="Xmark" Style="{StaticResource controlButtonIcon}"/>
+
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label FontSize="50" FontWeight="Medium" Foreground="{StaticResource color6}">Your trial period has expired.</Label>
+                        <Button Content="Active" Style="{StaticResource buttonNormal}" Click="btnActive_Click"></Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            
+            <Grid x:Name="main" Visibility="Visible">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="350"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+                <Border CornerRadius="10,0,0,10"
+                        Grid.Column="0">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0.5">
+                            <GradientStop Color="#d4d4f9" Offset="0"/>
+                            <GradientStop Color="#9292d6" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="200"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock x:Name="activeLicense" TextWrapping="Wrap" Margin="10,10,10,160" MouseLeftButtonDown="Active_License" Style="{StaticResource textBlockStyle}"></TextBlock>
+                        <Border>
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="10,20,10,20">
+                                <Image Source="/Resources/icon.png" Height="50" Margin="5,0,5,0"/>
+                                <TextBlock Text="DSS Speech Processing" VerticalAlignment="Center" FontSize="25" Foreground="White" FontWeight="Medium"/>
+                            </StackPanel>
+                        </Border>
+
+                        <RadioButton Grid.Row="1" Style="{StaticResource menuButton}" Click="btnSTT_Click">
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image Source="/Resources/waveform-icon.png" Height="50"/>
+                                <!--<fa:IconImage Icon="ArrowRight" Style="{StaticResource menuButtonIcon}"/>
+                                <Image Source="/Resources/text.png" Height="50" />-->
+                                <TextBlock Text="Speech To Text" FontSize="30" Foreground="White" FontWeight="Medium" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton Grid.Row="2" Style="{StaticResource menuButton}" Click="btnTTS_Click">
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image Source="/Resources/text.png" Height="50"/>
+                                <!--<fa:IconImage Icon="ArrowRight" Style="{StaticResource menuButtonIcon}"/>
+                                <Image Source="/Resources/waveform-icon.png" Height="50" />-->
+                                <TextBlock Text="Text To Speech" FontSize="30" Foreground="White" FontWeight="Medium" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </RadioButton>
+                        <!--<Button Grid.Row="1" Background="Transparent" BorderBrush="Transparent">
+                            <Label Content="Speech To Text" FontSize="30" Foreground="White" FontWeight="Medium"/>
+                        </Button>-->
+                        <!--<Button Grid.Row="2" Background="Transparent" BorderBrush="Transparent">
+                            <Label Content="Text To Speech" FontSize="30" Foreground="White" FontWeight="Medium"/>
+                        </Button>-->
+                        
+                        
+                        
+                    </Grid>
+
+                </Border>
+                <Border CornerRadius="0,10,10,0"
+                        Grid.Column="1">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#9292d6" Offset="0"/>
+                            <GradientStop Color="#6060a3" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Content="DSS Speech Processing ver 1.1.0" Foreground="WhiteSmoke"></Label>
+                        <StackPanel Grid.Row="0"
+                                    Orientation="Horizontal"
+                                    FlowDirection="RightToLeft"
+                                    Background="Transparent"
+                                    Margin="0,0,5,0"
+                                    MouseLeftButtonDown="pnlControlBar_MouseLeftButtonDown"
+                                    MouseEnter="pnlControlBar_MouseEnter">
+                            <Button x:Name="btnClose"
+                                    Style="{StaticResource controlButton}"
+                                    Tag="{StaticResource color4}"
+                                    Click="btnClose_Click">
+                                <fa:IconImage Icon="Xmark" Style="{StaticResource controlButtonIcon}"/>
+
+                            </Button>
+                            <Button x:Name="btnMaximize"
+                                    Style="{StaticResource controlButton}"
+                                    Tag="{StaticResource color4 }"
+                                    Click="btnMaximize_Click">              
+                                <fa:IconImage Icon="Square" Style="{StaticResource controlButtonIcon}"/>
+                            </Button>
+                            <Button x:Name="btnRestore"
+                                    Style="{StaticResource controlButton}"
+                                    Tag="{StaticResource color4 }"
+                                    Click="btnRestore_Click"
+                                    Visibility="Collapsed">          
+                                <fa:IconImage Icon="WindowRestore" Style="{StaticResource controlButtonIcon}"/>
+                            </Button>
+                            <Button x:Name="btnMinimize"
+                                    Style="{StaticResource controlButton}"
+                                    Tag="{StaticResource color4 }"
+                                    Click="btnMinimize_Click">
+                                <fa:IconImage Icon="WindowMinimize" Width="12" Style="{StaticResource controlButtonIcon}"/>
+                            </Button>
+                            
+                        </StackPanel>
+                        <Grid Grid.Row="1">
+                            <views:UserControl_Introduction 
+                                x:Name="userControl_Introduction"
+                                Visibility="Visible" />
+                            <views:UserControl_SpeechToText
+                                x:Name="userControl_SpeechToText"
+                                Visibility="Collapsed" />
+                            <views:UserControl_TextToSpeech
+                                x:Name="userControl_TextToSpeech"
+                                Visibility="Collapsed" />           
+                        </Grid>
+                        
+
+                        <!--<Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="200"/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                           
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                                <TextBlock Text="SPEECH PROCESSING APPLICATION" FontSize="40" Foreground="#FEE686" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Medium">
+                                </TextBlock>
+                                <TextBlock Text="A two-way voice-to-text converter for English" FontSize="30" Foreground="#FEE686" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Medium"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Margin="20,0,20,0" Text="Speech to Text" FontSize="50" FontWeight="Medium" Foreground="#FEE686" HorizontalAlignment="Center"></TextBlock>
+                                <TextBlock Margin="10,0,0,0" FontSize="30" FontWeight="Medium" Foreground="White" HorizontalAlignment="Center">
+                                    Input as voice replacement audio (.mp3, .wav) <LineBreak/> and then generate corresponding text.
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Margin="20,0,20,0" Text="Text to Speech" FontSize="50" FontWeight="Medium" Foreground="#FEE686" HorizontalAlignment="Center"></TextBlock>
+                                <TextBlock Margin="10,0,0,0" FontSize="30" FontWeight="Medium" Foreground="White" HorizontalAlignment="Center">
+                                    Receive text input (.txt) and then <LineBreak/> generate corresponding voice-replacement audio.
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>-->
+                    </Grid>
+
+                    
+                </Border>
+            </Grid>
+
+            <!--<views:UserControl_SplashScreen Background="Transparent"/>-->
+        </Grid>
+    </Border>
+
+
+</Window>
